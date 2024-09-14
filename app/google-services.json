@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "587409108369",
+    "project_id": "task-management-d9fb8",
+    "storage_bucket": "task-management-d9fb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587409108369:android:a5cc02b2f9159c40603e30",
+        "android_client_info": {
+          "package_name": "com.aimbeat.taskManagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBavBGeh5fZHKdkfE69WiXb2Sjd9AUMD1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
