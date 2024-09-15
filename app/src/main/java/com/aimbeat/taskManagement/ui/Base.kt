@@ -6,7 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
 
-open class Base <VB : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity() {
+// Pass DataViewBinding
+open class Base<VB : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity() {
 
     private var _binding: VB? = null
     val binding get() = _binding

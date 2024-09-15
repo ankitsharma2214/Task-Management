@@ -9,7 +9,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="#D63939"
+            android:background="?attr/colorPrimary"
             android:orientation="horizontal">
 
             <TextView
@@ -37,6 +37,18 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_background"
+            android:hint="Search..."
+            android:inputType="text"
+            android:padding="10dp" />
 
 
         <androidx.recyclerview.widget.RecyclerView

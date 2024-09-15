@@ -51,4 +51,9 @@ class TaskListAdapter(
         return taskmodelList.size
     }
 
+    fun updateTasks(newTasks: List<TaskModel>) {
+        taskmodelList = newTasks
+        notifyDataSetChanged()
+    }
+
 }

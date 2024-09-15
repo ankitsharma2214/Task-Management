@@ -5,6 +5,8 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -26,10 +28,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private val homevm: HomeVM by viewModels()
     private val CHANNEL_ID = "task_channel"
+    private lateinit var taskListAdapter: TaskListAdapter
+    private var allTasks: List<TaskModel> = listOf()
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        taskListAdapter = TaskListAdapter(requireContext(), listOf(), this)
+        binding?.rvTasklist?.adapter = taskListAdapter
 
         observal()
         homevm.getTask()
@@ -39,9 +47,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             ivAddBtn.setOnClickListener {
                 addTaskDialog(null, 1)
             }
+
+            // Set up the search EditText
+            etSearch.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    filterTasks(s.toString())
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
         }
     }
-
 
     fun addTaskDialog(taskModel1: TaskModel? = null, i: Int) {
         val addbottomShot =
@@ -123,9 +141,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     }
 
+    // Observe the fetch Data
+
     fun observal() {
         homevm.homedata.observe(viewLifecycleOwner) { arrayList ->
             Log.v("CHECK_DATA", "" + arrayList)
+            allTasks = arrayList
+            taskListAdapter.updateTasks(arrayList)
             binding?.rvTasklist?.adapter =
                 TaskListAdapter(requireContext(), arrayList, listner = this)
         }
@@ -138,6 +160,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun delete(taskModel: TaskModel) {
         homevm.deleteTask(taskModel)
     }
+
+    private fun filterTasks(query: String) {
+        val filteredTasks = allTasks.filter { it.status.contains(query, ignoreCase = true) }
+        taskListAdapter.updateTasks(filteredTasks)
+    }
+
 
     private fun showNotification(title: String, message: String) {
         val notificationManager =

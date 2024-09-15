@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.aimbeat.taskManagement.R
 import com.aimbeat.taskManagement.databinding.FragmentLoginBinding
@@ -24,6 +25,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
     @Inject
     lateinit var editor: SharedPreferences.Editor
 
@@ -33,12 +35,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding?.apply {
             binding?.loginVM = authVM
             loginbtn.setOnClickListener {
-                authVM.loginAuth()
+                val email = binding?.username?.text.toString()
+                val password = binding?.password?.text.toString()
+                if (isValidEmail(email)) {
+                    authVM.loginAuth()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Invalid Email or Password",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
         authVM.logindata.observe(viewLifecycleOwner) {
             if (it == 1) {
-                Toast.makeText(requireContext(), "Please Enter valid  Email & Passowrd !!", Toast.LENGTH_SHORT
+                Toast.makeText(
+                    requireContext(), "Please Enter valid  Email & Passowrd !!", Toast.LENGTH_SHORT
                 ).show()
             } else {
                 findNavController().navigate(R.id.homeactivity)
@@ -49,4 +62,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             }
         }
     }
+
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+
 }

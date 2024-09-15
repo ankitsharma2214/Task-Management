@@ -45,6 +45,7 @@ class AuthVM @Inject constructor(
 
     }
 
+    // Login Checking ...
     private fun checkLogin() {
         firestore.collection("user").whereEqualTo("email", registerModel.email).get()
             .addOnSuccessListener {
