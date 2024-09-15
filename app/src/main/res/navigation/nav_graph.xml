@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/auth_fragment">
+
+    <fragment
+        android:id="@+id/auth_fragment"
+        android:name="com.aimbeat.taskManagement.ui.login.fragment.AuthFragment"
+        android:label="AuthFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginfragment"
+        android:name="com.aimbeat.taskManagement.ui.login.fragment.LoginFragment"
+        android:label="LoginFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationfragment"
+        android:name="com.aimbeat.taskManagement.ui.login.fragment.RegistrationFragment"
+        android:label="RegistrationFragment">
+
+    </fragment>
+
+    <activity
+        android:id="@+id/homeactivity"
+        android:name="com.aimbeat.taskManagement.ui.home.HomeActivity"
+        tools:layout="HomeActivity">
+
+    </activity>
+
+
+
+
+</navigation>

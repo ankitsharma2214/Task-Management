@@ -3,7 +3,9 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.android.hilt)
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
+    id("kotlin-android")
+
 }
 
 android {
@@ -19,11 +21,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    android {
-        buildFeatures {
-            viewBinding = true
-        }
-    }
+
 
     buildTypes {
         release {
@@ -41,6 +39,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        dataBinding =  true
+        viewBinding =  true
+    }
 }
 
 dependencies {
@@ -55,16 +58,28 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
     // Firebase
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
 
-    implementation(libs.hilt.android)
+    //Dagger-Hilt
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
 
-    implementation (libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    // Room database
+    implementation (libs.androidx.room.ktx)
+    implementation (libs.androidx.room.runtime)
+    kapt (libs.androidx.room.compiler)
+
+    // Navigation
+    implementation (libs.androidx.navigation.fragment)
+    implementation (libs.javapoet)
+
+    //Coroutines
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation (libs.kotlinx.coroutines.core)
 
 
 
